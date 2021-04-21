@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <title>Nueva venta</title>
+</head>
+<body>
+    <div class="container d-flex mt-5">
+        <div class="col-5" style="margin-right: 60px;">
+            <span class="fs-3">NUEVA VENTA</span>
+            <form action="" class="row g-3 mt-1" style="position: relative;">
+                <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+                <div class="input-group">
+                    <input id="search-input" autocomplete="off" type="text" class="form-control" placeholder="Escribe para buscar producto">
+                    <div class="input-group-text justify-content-between bg-light fas fa-search"></div>
+                </div>
+                <!-- -------------- tabla busqueda -------------------- -->
+                <ol id="list-products" class="list-group list-group-numbered mt-3 visually-hidden " style="position:absolute; top: 50px;">
+                    <li class="list-group-item d-flex align-items-start">
+                        <div class="ms-2 me-auto">
+                        <div class="fw-bold">Subheading</div>
+                        Cras justo odio
+                        </div>
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </li>
+                </ol>
+                <!-- -------------- tabla busqueda -------------------- -->
+                <div class="">
+                    <label class="form-label">Precio</label>
+                    <input id="inputPriceUI" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="">
+                    <label class="form-label">Cantidad</label>
+                    <input id="inputCantUI" type="number" class="form-control" placeholder="">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">AGREGAR</button>
+                </div>
+                
+            </form>
+        </div>
+        <div class="col-5">
+            <span class="fs-3 d-block">LISTA DE PRODUCTOS</span>
+            <!-- <table class="table table-bordered"></table> -->
+            <ol id="list-products-sale" class="list-group list-group-numbered mt-3">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                    <div class="fw-bold">hola</div>
+                    ingresa nuevo producto
+                    </div>
+                    <span class="badge bg-primary rounded-pill">?</span>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+    
+
+    <footer>
+    </footer>
+
+    <script src="/JS/navBar.js"></script>
+    <script src="/JS/footer.js"></script>
+    <script src="/JS/registroVenta.js"></script>
+</body>
+</html>

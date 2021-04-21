@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+   <title>Document</title>
+</head>
+<body>
+   
+   <div class="container column is-4" style="margin-top: 80px;">
+      <h1 class="title is-2">Registro Usuario</h1>
+      <form id="formulario" action="">
+         <div class="field" style="margin-top: 50px;">
+            <label class="label">Usuario</label>
+            <div class="control has-icons-left has-icons-right">
+               <input id="user-name" class="input is-medium is-primary" type="text" placeholder="Nombre Usuario" value="">
+               <span class="icon is-small is-left">
+                  <i class="fas fa-user"></i>
+               </span>
+            </div>
+               <!-- <p class="help is-success">This username is available</p> -->
+         </div>
+            <div class="field">
+               <label class="label">Contraseña</label>
+               <div class="control has-icons-left has-icons-right">
+                  <input id="user-pass" class="input is-medium is-primary" type="password" placeholder="Contraseña" value="">
+                  <span class="icon is-small is-left">
+                     <i class="fas fa-key"></i>
+                  </span>
+               </div>
+            </div>
+            <div class="field">
+               <label class="label">Contraseña</label>
+               <div class="control has-icons-left has-icons-right">
+                  <input id="pass-confirm" class="input is-medium is-primary" type="password" placeholder="Repetir Contraseña" value="">
+                  <span class="icon is-small is-left">
+                     <i class="fas fa-key"></i>
+                  </span>
+               </div>
+            </div>
+            <div class="field" style="margin-top: 30px;">
+               <button type="submit" class="button is-medium is-primary is-focused">Registrar</button>
+            </div>
+      </form>
+   </div>
+
+   <script src="./indexAPP.js"></script>
+</body>
+</html>
