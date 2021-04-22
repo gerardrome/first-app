@@ -20,7 +20,6 @@ const _guardarProduct = () =>{
             updateProduct.Precio = precioUI.value;
             updateProduct.existencia = existenciaUI.value;
             updateProduct.categoria = categoriaUI.value;
-        console.log(updateProduct);
     }else{
         let product = {
             nameProduct: productUI.value,

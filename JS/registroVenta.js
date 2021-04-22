@@ -5,6 +5,7 @@ const formUI = document.querySelector('form');
 const searchTermUI = document.querySelector('#search-input');
 const productPriceUI = document.querySelector('#inputPriceUI');
 const productCantUI = document.querySelector('#inputCantUI');
+const inputsUI = document.querySelectorAll('input');
 const listaVentaProductosUI = document.querySelector('#list-products-sale');
 let productSaleList = localStorage.getItem('productos-venta') ? JSON.parse(localStorage.getItem('productos-venta')) : [];
 let productsList = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
@@ -12,6 +13,7 @@ let indexProduct = null;
 let productsFilter = '';
 
 // ============================ FUNCIONES =======================
+
 // ---------------- AGREGAR PRODUCTO PARA VENTA ------------------>
 const _agregarVenta = (producto, precio, cantidad) => {
    newSale = {
@@ -41,22 +43,24 @@ const _guardarVentaLS = ()=>{
    localStorage.setItem('productos-venta', JSON.stringify(productSaleList));
 };
 
-const _statusChange = (input, status) =>{
-   input.className = status;
+const _statusChange = (input) =>{
+   input.classList.add('is-invalid')
 };
 
 const _validateVenta = () =>{
-   const valido = 'form-control';
-   const inValido = 'form-control is-invalid';
-   let change = true;
-   switch (searchTermUI.value === '') {
-      case true:
-         change = false
-         _statusChange(searchTermUI, inValido);
-         break;
-      case false:
-         _statusChange(searchTermUI, valido);
-   };
+   const status = null
+   if (searchTermUI.value === '') {
+      _statusChange(searchTermUI);
+      status
+   }if(productPriceUI.value === '') {
+      _statusChange(productPriceUI);
+      status
+   }if(productCantUI.value === '') {
+      _statusChange(productCantUI);
+      status
+   }if(status === null) {
+      alert('completa todos los campos')
+   }
 };
 
 // <------------------------------------------------------------------------------------
@@ -133,6 +137,7 @@ const _singOff = () =>{
 };
 
 // ============================ EVENTOS ========================
+
 _validateUserActive();
 _printSaleList();
 
@@ -146,9 +151,15 @@ searchTermUI.addEventListener('keyup', e =>{
    };
 });
 
+inputsUI.forEach(input => input.addEventListener('focus', function() {
+   this.classList.remove('is-invalid');
+}));
+
+
 formUI.addEventListener('submit', e => {
    e.preventDefault();
    _agregarVenta(searchTermUI.value, productPriceUI.value, productCantUI.value);
+   _validateVenta();
    _printSaleList();
    formUI.reset();
    _guardarVentaLS();
