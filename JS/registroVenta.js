@@ -10,33 +10,52 @@ const listaVentaProductosUI = document.querySelector('#list-products-sale');
 let productSaleList = [];
 let productsList = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
 let indexProduct = null;
+let indexProductEdit = null;
 let productsFilter = '';
-
 // ============================ FUNCIONES =======================
 
 // ---------------- AGREGAR PRODUCTO PARA VENTA ------------------>
-const _addSale = (producto, precio, cantidad) => {
-   newSale = {
-      producto: producto,
-      precio: precio,
-      cantidad: cantidad,
+const _addSale = () => {
+   if (indexProductEdit) {
+      const updateSale = productSaleList[indexProductEdit];
+      updateSale.producto = searchTermUI.value;
+      updateSale.precio = productPriceUI.value;
+      updateSale.cantidad = productCantUI.value;
+      // console.log('agregar', indexProductEdit, productSaleList);
+   }else{
+      newSale = {
+         producto: searchTermUI.value,
+         precio: productPriceUI.value,
+         cantidad: productCantUI.value,
+      };
+      productSaleList.push(newSale);
    };
-   productSaleList.push(newSale);
+   indexProductEdit = null
    _printSaleList();
 
 };
 
 const _deleteProduct = (index) =>{
+   event.stopPropagation();
    productSaleList.splice(index,1)
    _printSaleList();
-   console.log(productSaleList);
+   // console.log(productSaleList);
+};
+
+function _editSale(index) {
+   indexProductEdit = index
+   product = productSaleList[index];
+   // console.log('editar', product);
+   searchTermUI.value = product.producto;
+   productPriceUI.value = product.precio;
+   productCantUI.value = product.cantidad;
 };
 
 const _printSaleList = () =>{
    listaVentaProductosUI.innerHTML = ''
    productSaleList.forEach((elem, index) => {
       listaVentaProductosUI.innerHTML += `
-         <li class="list-group-item d-flex justify-content-between align-items-start">
+         <li class="list-group-item d-flex justify-content-between align-items-start" onclick="_editSale('${index}')">
             <div class="ms-2 me-auto">
             <div class="fw-bold">${elem.producto}</div>
             Precio $ ${elem.precio}
@@ -67,7 +86,7 @@ const _validateVenta = () =>{
    if(status === false) {
       alert('completa todos los campos')
    }else{
-      _addSale(searchTermUI.value, productPriceUI.value, productCantUI.value)
+      _addSale();
    };
 };
 
