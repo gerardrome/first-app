@@ -21,7 +21,6 @@ const _addSale = () => {
       updateSale.producto = searchTermUI.value;
       updateSale.precio = productPriceUI.value;
       updateSale.cantidad = productCantUI.value;
-      // console.log('agregar', indexProductEdit, productSaleList);
    }else{
       newSale = {
          producto: searchTermUI.value,
@@ -39,13 +38,11 @@ const _deleteProduct = (index) =>{
    event.stopPropagation();
    productSaleList.splice(index,1)
    _printSaleList();
-   // console.log(productSaleList);
 };
 
 function _editSale(index) {
    indexProductEdit = index
    product = productSaleList[index];
-   // console.log('editar', product);
    searchTermUI.value = product.producto;
    productPriceUI.value = product.precio;
    productCantUI.value = product.cantidad;
