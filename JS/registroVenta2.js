@@ -9,11 +9,29 @@ const inputsUI = document.querySelectorAll('input');
 const listaVentaProductosUI = document.querySelector('#list-products-sale');
 let productsList = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
 let productSaleList = [];
+let listaVentas = localStorage.getItem('ventas-realizadas') ? JSON.parse(localStorage.getItem('ventas-realizadas')) : productSaleList
 let productsFilter = [];
 let indexProductEdit = null;
 // ============================ FUNCIONES =======================
 
-// ---------------- AGREGAR PRODUCTO PARA VENTA ------------------>
+/* -------------------- CONCRETAR VENTA ------------------------------*/
+const _validateFinSale = () => {
+   if (productSaleList[0]) {
+      listaVentas.push(productSaleList)
+      productSaleList = [];
+      _printSaleList();
+      alert('venta realizada con exito :)');
+   }else{
+      alert('aun no se ingresan productos :(')
+   };
+};
+
+const _finSale = () =>{
+   _validateFinSale()
+   localStorage.setItem('ventas-realizadas', JSON.stringify(listaVentas))
+};
+
+// -------------------- AGREGAR PRODUCTO PARA VENTA ------------------>
 // modelo
 // es el que se enarga de llevar el estado de la aplicacion 
 let productModel = {};
@@ -28,7 +46,6 @@ const _initProduct = (product) =>{
    searchTermUI.value   = productModel.nameProduct;
    productPriceUI.value = productModel.Precio;
    productCantUI.value  = productModel.existencia;
-   console.log(productModel);
 };
 _initProduct();
 
@@ -46,7 +63,7 @@ const _addSale = () =>{
    };
    indexProductEdit = null
    _printSaleList();
-   console.log('agregar lista',productModel);
+   console.log('articulos carrito', productSaleList);
 };
 
 const _deleteProduct = (index) =>{
@@ -121,7 +138,6 @@ const _printProductsList = (listado) => {
 
 const _productSelect = (index) => {
    _initProduct(productsFilter[index]);
-   console.log('producto sleccionado', productsFilter[index]);
    searchTermUI.classList.remove('is-invalid');
    productPriceUI.classList.remove('is-invalid');
    productCantUI.classList.remove('is-invalid');
