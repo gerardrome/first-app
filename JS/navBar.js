@@ -20,6 +20,10 @@ const menuList = [
         nombre: 'Nueva venta',
         url: 'registroVenta.html',
     },
+    {
+        nombre: 'Ventas realizadas',
+        url: 'ventasRealizadas.html',
+    },
 ];
 
 const _getLinks = () => {
@@ -54,5 +58,4 @@ const _renderNavBar = () =>{
     `;
     bodyUI.insertAdjacentHTML('afterbegin', structurNavBar);
 };
-
 _renderNavBar();

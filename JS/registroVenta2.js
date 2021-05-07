@@ -7,34 +7,59 @@ const productPriceUI = document.querySelector('#inputPriceUI');
 const productCantUI = document.querySelector('#inputCantUI');
 const inputsUI = document.querySelectorAll('input');
 const listaVentaProductosUI = document.querySelector('#list-products-sale');
-let productsList = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
+const productsList = localStorage.getItem('productos') ? JSON.parse(localStorage.getItem('productos')) : [];
+const listaVentas = localStorage.getItem('ventas-realizadas') ? JSON.parse(localStorage.getItem('ventas-realizadas')) : []
 let productSaleList = [];
-let listaVentas = localStorage.getItem('ventas-realizadas') ? JSON.parse(localStorage.getItem('ventas-realizadas')) : productSaleList
 let productsFilter = [];
+let productModel = {};
+let paramProductRute = null
 let indexProductEdit = null;
 // ============================ FUNCIONES =======================
 
+
 /* -------------------- CONCRETAR VENTA ------------------------------*/
-const _validateFinSale = () => {
-   if (productSaleList[0]) {
-      listaVentas.push(productSaleList)
-      productSaleList = [];
-      _printSaleList();
-      alert('venta realizada con exito :)');
-   }else{
-      alert('aun no se ingresan productos :(')
+const _productsTotal = () =>{
+   return productSaleList.reduce((acc, item) => acc += item.precio * item.existencia, 0)
+};
+
+const _validSaleUpdate = (idParam) =>{
+   if (idParam) {
+      listaVentas[_getListIndex(idParam)].productos = productSaleList;
+      localStorage.setItem('ventas-realizadas', JSON.stringify(listaVentas));       
+      alert('venta actualizada');
+      window.location.href = `ventasRealizadas.html`
    };
 };
 
-const _finSale = () =>{
-   _validateFinSale()
-   localStorage.setItem('ventas-realizadas', JSON.stringify(listaVentas))
+const _guardarVenta = () =>{
+   if(_validSaleUpdate(paramProductRute)) {
+   }else{
+      _validateFinSale()
+   };
 };
 
-// -------------------- AGREGAR PRODUCTO PARA VENTA ------------------>
+
+const _validateFinSale = () => {
+   if (productSaleList[0]){
+      if(paramProductRute !== null) return
+      listaVentas.push({
+         id: Date.now(),
+         fecha: new Date().toLocaleDateString(),
+         total: _productsTotal(),
+         productos: productSaleList
+      });
+      alert('venta realizada con exito :)');
+      productSaleList = [];
+      _printSaleList();
+      localStorage.setItem('ventas-realizadas', JSON.stringify(listaVentas));       
+   }else{
+      alert('aun no se ingresan articulos')
+   };
+};
+
+
 // modelo
 // es el que se enarga de llevar el estado de la aplicacion 
-let productModel = {};
 
 
 const _initProduct = (product) =>{
@@ -63,7 +88,6 @@ const _addSale = () =>{
    };
    indexProductEdit = null
    _printSaleList();
-   console.log('articulos carrito', productSaleList);
 };
 
 const _deleteProduct = (index) =>{
@@ -93,6 +117,25 @@ const _printSaleList = () =>{
       `
    });
 };
+
+// ---------------------- OBTENER ELEMENTO DE RUTA Y PINTAR -------------------->
+const _getListIndex = (idParam) => listaVentas.findIndex(elem => elem.id == idParam);
+
+const _productRoute = () =>{
+   const productId = window.location.search;
+   const urlParam = new URLSearchParams(productId);
+   paramProductRute = urlParam.get('id');
+   if (paramProductRute) {
+      indexProductEdit = _getListIndex(paramProductRute);
+      if (indexProductEdit > -1) {
+         productSaleList = listaVentas[indexProductEdit].productos;
+         _printSaleList()
+      };
+   };
+};
+_productRoute();
+// --------------------------------------------------------------------<
+
 
 const _statusChange = (input) =>{
    input.classList.add('is-invalid')
